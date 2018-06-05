@@ -3,10 +3,15 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
+let mongoose = require('mongoose');
+
+let port = 4000;
+mongoose.connect('mongodb://localhost:27017/hw2');
 
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let hw1Router = require('./routes/hw1');
+let hw2Router = require('./routes/hw2');
 
 let app = express();
 
@@ -23,7 +28,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/hw1', hw1Router);
+app.use('/hw2', hw2Router);
 
+app.listen(port);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
